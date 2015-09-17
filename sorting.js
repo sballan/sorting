@@ -16,3 +16,31 @@ function bubbleSort(arr) {
   }
   return arr;
 }
+
+function merge(arr1, arr2) {
+  var pointer1 = 0;
+  var pointer2 = 0;
+  var tempArray = [];
+
+  while(pointer1 < arr1.length || pointer2 < arr2.length) {
+    if (!!arr1[pointer1] || !!arr2[pointer2]) {
+      if (arr1[pointer1] > arr2[pointer2]) {
+        tempArray.push(arr2[pointer2]);
+        pointer2++;
+      }
+
+      if (arr1[pointer1] <= arr2[pointer2]){
+        tempArray.push(arr1[pointer1]);
+        pointer1++;
+      }
+    }
+    //
+    // if(!arr1[pointer1] || !arr2[pointer2]) {
+    //
+    // }
+
+
+  }
+
+  return tempArray;
+}
