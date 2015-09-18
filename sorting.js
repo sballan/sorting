@@ -1,7 +1,5 @@
 function bubbleSort(arr) {
-  if(arr.length <= 1) {
-    return arr.length === 1 ? arr : [];
-  }
+  if(arr.length <= 1) { return arr; }
 
   var counter = arr.length-1;
   while(counter > 0) {
@@ -18,29 +16,42 @@ function bubbleSort(arr) {
 }
 
 function merge(arr1, arr2) {
-  var pointer1 = 0;
-  var pointer2 = 0;
+  var a1 = [].concat(arr1);
+  var a2 = [].concat(arr2);
   var tempArray = [];
 
-  while(pointer1 < arr1.length || pointer2 < arr2.length) {
-    if (!!arr1[pointer1] || !!arr2[pointer2]) {
-      if (arr1[pointer1] > arr2[pointer2]) {
-        tempArray.push(arr2[pointer2]);
-        pointer2++;
-      }
-
-      if (arr1[pointer1] <= arr2[pointer2]){
-        tempArray.push(arr1[pointer1]);
-        pointer1++;
-      }
-    }
-    //
-    // if(!arr1[pointer1] || !arr2[pointer2]) {
-    //
-    // }
-
-
+  while (a1.length) {
+    if(a1[0] > a2[0]) tempArray.push(a2.shift());
+    else tempArray.push(a1.shift());
   }
+  return tempArray = tempArray.concat((a1 = a1.concat(a2)));
+}
 
-  return tempArray;
+function split(wholeArray) {
+  var firstHalf = [];
+  var secondHalf = [];
+
+  var halfWay = wholeArray.length / 2;
+  for (var i = 0; i < wholeArray.length; i++) {
+    if(i < halfWay) {
+      firstHalf.push(wholeArray[i]);
+    } else {
+      secondHalf.push(wholeArray[i]);
+    }
+  }
+  return [firstHalf, secondHalf];
+}
+
+function merge_sort (array) {
+
+  if (array.length <= 1) { return array; }
+
+  var leftList = split(array)[0];
+  var rightList = split(array)[1];
+
+  leftList = merge_sort(leftList);
+  rightList = merge_sort(rightList);
+
+  return merge(leftList, rightList);
+
 }
