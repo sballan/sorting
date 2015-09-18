@@ -15,7 +15,7 @@ function bubbleSort(arr) {
   return arr;
 }
 
-function merge(arr1, arr2) {
+function mergeOld(arr1, arr2) {
   var a1 = [].concat(arr1);
   var a2 = [].concat(arr2);
   var tempArray = [];
@@ -25,6 +25,30 @@ function merge(arr1, arr2) {
     else tempArray.push(a1.shift());
   }
   return tempArray = tempArray.concat((a1 = a1.concat(a2)));
+}
+
+function merge(arr1, arr2) {
+  var tempArray = [];
+  var p1 = 0;
+  var p2 = 0;
+
+  while (p1 < arr1.length) {
+    if(arr1[p1] > arr2[p2]) {
+      tempArray.push(arr2[p2]);
+      p2++;
+    } else {
+      tempArray.push(arr1[p1]);
+      p1++;
+    }
+  }
+
+  if(arr2.length >= p2) {
+    for(var i = p2; i < arr2.length; i++) {
+      tempArray.push(arr2[p2]);
+    }
+  }
+
+  return tempArray;
 }
 
 function split(wholeArray) {
