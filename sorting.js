@@ -16,6 +16,8 @@ function bubbleSort(arr) {
 }
 //Interesting method of BubbleSoring - using the
 //boolean switch to see when the last swap happened.
+
+/*
 function FSbubbleSort(arr) {
   //***VERY CLEVER***
   //since we return arr, we can return other data along with it.
@@ -41,27 +43,29 @@ function FSbubbleSort(arr) {
   }
   return arr;
 }
-function swap(arr, index1, index2) {
-  var oldElem = arr[i];
-  arr[i] = arr[i+1];
-  arr[i+1] = oldElem;
-}
-function FS2bubbleSort(arr) {
+*/
 
-  arr.numSwaps = 0;
-  var swapHappenedLastTime = true;
-
-  while(swapHappenedLastTime) {
-    swapHappenedLastTime = false;
-    for(var i = 0; i < arr.length; i++) {
-      if(arr[i] > arr[i+1]) {
-        swapHappenedLastTime = true;
-        swap(arr, i, i+1);
-      }
-    }
-  }
-  return arr;
-}
+// function swap(arr, index1, index2) {
+//   var oldElem = arr[i];
+//   arr[i] = arr[i+1];
+//   arr[i+1] = oldElem;
+// // }
+// function FS2bubbleSort(arr) {
+//
+//   arr.numSwaps = 0;
+//   var swapHappenedLastTime = true;
+//
+//   while(swapHappenedLastTime) {
+//     swapHappenedLastTime = false;
+//     for(var i = 0; i < arr.length; i++) {
+//       if(arr[i] > arr[i+1]) {
+//         swapHappenedLastTime = true;
+//         swap(arr, i, i+1);
+//       }
+//     }
+//   }
+//   return arr;
+// }
 
 //******* This was the first Merge() that we made.  It was slow.*******
 // function mergeOld(arr1, arr2) {
@@ -78,8 +82,7 @@ function FS2bubbleSort(arr) {
 
 function merge(arr1, arr2) {
   var tempArray = [];
-  var p1 = 0;
-  var p2 = 0;
+  var p1 = 0, p2 = 0;
 
   while (p1 < arr1.length) {
     if(arr1[p1] > arr2[p2]) {
@@ -115,8 +118,17 @@ function split(wholeArray) {
   return [firstHalf, secondHalf];
 }
 
-function merge_sort (array) {
+function FSsplit(arr) {
+  var middle = arr.length / 2;
+  var left = arr.slice(0, middle);
+  var right = arr.slice(middle);
+  for (var i = 0; i < arr.length; i++) {
+    left.push(arr[i]);
+  }
+  return [left, right];
+}
 
+function merge_sort (array) {
   if (array.length <= 1) { return array; }
 
   var leftList = split(array)[0];
@@ -127,4 +139,38 @@ function merge_sort (array) {
 
   return merge(leftList, rightList);
 
+}
+
+function FSmerge_sort(array) {
+  var sorted = [];
+
+
+  return sorted;
+}
+
+
+
+for(var i=20; i <= 50; i++) {
+    var num_items = Math.pow(2,i);
+    var native_test_array = [];
+    var b_test_array = [];
+    var m_test_array = [];
+    for(var j=0; j < num_items; j++) {
+        var rand = Math.floor(Math.random() * num_items);
+        native_test_array.push(rand);
+        b_test_array.push(rand);
+        m_test_array.push(rand);
+    }
+
+    console.time(num_items + " native");
+    native_test_array.sort(function(a,b){ return a-b; });
+    console.timeEnd(num_items + " native");
+
+    // console.time(num_items + " bubble");
+    // bubbleSort(b_test_array);
+    // console.timeEnd(num_items + " bubble");
+
+    console.time(num_items + " merge");
+    merge_sort(m_test_array);
+    console.timeEnd(num_items + " merge");
 }

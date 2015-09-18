@@ -41,10 +41,49 @@ describe('Split Array function', function() {
 });
 
 describe('Merge Sort', function() {
-  it('Should work?', function() {
-    expect( merge_sort([8, 6, 5, 4, 3, 2, 7, 1])).toEqual([1, 2, 3, 4, 5, 6, 7, 8]);
+  describe('split() function', function() {
+    it('is able to split an array of even length into two halves', function() {
+      expect( split([1, 2, 3, 4, 5, 6, 7, 8])).toEqual([[1, 2, 3, 4], [5, 6, 7, 8]]);
+    });
+    it('is able to split an array of odd length into two halves', function() {
+      expect( split([1, 2, 3, 4, 5, 6, 7])).toEqual([[1, 2, 3, 4], [5, 6, 7]]);
+    });
   });
+
+  describe('merge() function', function() {
+    it('is able to merge two sorted arrays of same size', function(){
+      expect( merge([1, 3, 5], [2, 4, 6])).toEqual([1, 2, 3, 4, 5, 6]);
+    });
+
+    it('is able to merge two sorted arrays; first one larger', function(){
+      expect( merge([1, 3, 5, 7, 9], [2, 4, 6])).toEqual([1, 2, 3, 4, 5, 6, 7, 9]);
+    });
+
+    it('is able to merge two sorted arrays; second one larger', function(){
+      expect( merge([1, 3, 5, 7], [0, 2, 4, 6, 8])).toEqual([0, 1, 2, 3, 4, 5, 6, 7, 8]);
+    });
+
+  });
+
 });
+
+function FSspyOn(obj, methodName) {
+  var original = obj[methodName];
+  function spiedMethod() {
+    spiedMethod.callCount = spiedMethod.callCount || 0;
+    spiedMethod.callCount++;
+    return original.apply(this, arguments); //==> this will call our original function whenever spyOn() is called.
+  }
+  obj[methodName] = spiedMethod; //This is where we replace the original method with our altered method.
+}
+//swap();  //swap.callCount ==> 0; Original Swap Method has been called.
+//spyOn(window, 'swap');
+//swap();  //swap.callCount ==> 1; Original Swap Method has still been called.
+
+
+
+
+
 
 for(var i=12; i <= 17; i++) {
     var num_items = Math.pow(2,i);
@@ -61,10 +100,10 @@ for(var i=12; i <= 17; i++) {
     console.time(num_items + " native");
     native_test_array.sort(function(a,b){ return a-b; });
     console.timeEnd(num_items + " native");
-
-    console.time(num_items + " bubble");
-    bubbleSort(b_test_array);
-    console.timeEnd(num_items + " bubble");
+    // 
+    // console.time(num_items + " bubble");
+    // bubbleSort(b_test_array);
+    // console.timeEnd(num_items + " bubble");
 
     console.time(num_items + " merge");
     merge_sort(m_test_array);
