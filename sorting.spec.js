@@ -1,4 +1,4 @@
-
+//In the spec Omni did, he has all sorts of specs to make sure that the way the Bubble sort happens is actually how Bubble sort is supposed to work, for instance tests to see how many swaps happen.
 
 describe('Bubble Sort', function(){
     it('handles an empty array', function(){

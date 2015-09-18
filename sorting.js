@@ -14,18 +14,67 @@ function bubbleSort(arr) {
   }
   return arr;
 }
+//Interesting method of BubbleSoring - using the
+//boolean switch to see when the last swap happened.
+function FSbubbleSort(arr) {
+  //***VERY CLEVER***
+  //since we return arr, we can return other data along with it.
 
-function mergeOld(arr1, arr2) {
-  var a1 = [].concat(arr1);
-  var a2 = [].concat(arr2);
-  var tempArray = [];
+  //At the same time, as a general rule we should not change our
+  //function just for the sake of testing it, and in this case
+  //numSwaps is only useful for testing purposes.  FS2bubbleSort has
+  //an interesting way to deal with this.
+  arr.numSwaps = 0;
+  var swapHappenedLastTime = true;
 
-  while (a1.length) {
-    if(a1[0] > a2[0]) tempArray.push(a2.shift());
-    else tempArray.push(a1.shift());
+  while(swapHappenedLastTime) {
+    swapHappenedLastTime = false;
+    for(var i = 0; i < arr.length; i++) {
+      if(arr[i] > arr[i+1]) {
+        swapHappenedLastTime = true;
+        var oldElem = arr[i];
+        varr[i] = arr[i+1];
+        arr[i+1] = oldElem;
+        arr.numSwaps++;
+      }
+    }
   }
-  return tempArray = tempArray.concat((a1 = a1.concat(a2)));
+  return arr;
 }
+function swap(arr, index1, index2) {
+  var oldElem = arr[i];
+  arr[i] = arr[i+1];
+  arr[i+1] = oldElem;
+}
+function FS2bubbleSort(arr) {
+
+  arr.numSwaps = 0;
+  var swapHappenedLastTime = true;
+
+  while(swapHappenedLastTime) {
+    swapHappenedLastTime = false;
+    for(var i = 0; i < arr.length; i++) {
+      if(arr[i] > arr[i+1]) {
+        swapHappenedLastTime = true;
+        swap(arr, i, i+1);
+      }
+    }
+  }
+  return arr;
+}
+
+//******* This was the first Merge() that we made.  It was slow.*******
+// function mergeOld(arr1, arr2) {
+//   var a1 = [].concat(arr1);
+//   var a2 = [].concat(arr2);
+//   var tempArray = [];
+//
+//   while (a1.length) {
+//     if(a1[0] > a2[0]) tempArray.push(a2.shift());
+//     else tempArray.push(a1.shift());
+//   }
+//   return tempArray = tempArray.concat((a1 = a1.concat(a2)));
+// }
 
 function merge(arr1, arr2) {
   var tempArray = [];
